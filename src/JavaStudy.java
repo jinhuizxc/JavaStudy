@@ -1,5 +1,6 @@
+import course.Course;
+import course.CourseEntity;
 import enums.FreshJuice;
-import inherit.Animal;
 import inherit.Mouse;
 import inherit.superclass.SubClass;
 import interfaces.MammalInt;
@@ -10,8 +11,12 @@ import polymorphism.Cat;
 import polymorphism.virtualmothod.Employee;
 import polymorphism.virtualmothod.Salary;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class JavaStudy {
@@ -196,10 +201,174 @@ public class JavaStudy {
          */
         arithmetic();
 
+        System.out.println("java面试总结");
+
+        /**
+         * 面试总结
+         *
+         *
+         */
+//        testSleep();
+
+        /**
+         *  向list中添加数据
+         */
+        addList();
+
+        /**
+         * Java float保留两位小数或多位小数
+         * http://www.cnblogs.com/Dtscal/p/3485405.html
+         */
+        floatAndDouble();
+        floatAndDouble1();
+
 
     }
 
     /**
+     * JAVA float double数据类型保留2位小数点5种方法
+     * http://www.cnblogs.com/simpledev/p/4765834.html
+     */
+    private static void floatAndDouble1() {
+
+        System.out.println("JAVA float double数据类型保留2位小数点5种方法:");
+        //方法一: 计算小数点的位数：
+        System.out.println("1/8 = " + 1 / (float) 8);
+        float TT = Math.round(1 / (float) 8);   //返回的是int型。
+        System.out.println("四舍五入小数 ：" + TT);
+        System.out.println("四舍五入小数2 ：" + Math.round(2.1546));
+
+        //方法2
+        DecimalFormat df2 = new DecimalFormat("###.00");
+        DecimalFormat df3 = new DecimalFormat("###.000");
+        System.out.println("转换2 = " + df2.format(1 / (float) 8));
+        System.out.println("转换3 = " + df3.format(1.1256));
+
+        //方法3
+        String ss1 = String.format("%10.2f%%", 1.1256);  //1.13f
+        String ss2 = String.format("%10.2f", 1.1256);   //       1.13
+        String ss3 = String.format("%1.2f", 0.1256);   //1.13
+        System.out.println("转换4 1 = " + ss1);
+        System.out.println("转换4 2 = " + ss2);
+        System.out.println("转换4 3 = " + ss3);
+
+        //方法4
+        double x = 23.5455;
+        NumberFormat ddf1 = NumberFormat.getNumberInstance();
+        ddf1.setMaximumFractionDigits(2);
+        String s = ddf1.format(x);
+        System.out.println("方法4 数字格式 0 = " + s);   //四舍五入   23.55
+
+        float text = 0.5455f;
+        NumberFormat numberFormat = NumberFormat.getNumberInstance();
+        numberFormat.setMaximumFractionDigits(2);
+        String str = ddf1.format(Double.valueOf(text));
+        System.out.println("方法4 数字格式 1 = " + str);   //四舍五入   23.55
+
+        //方法5
+        float T = 0.1257f;
+        BigDecimal b = new BigDecimal(T);
+        T = b.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+        System.out.println("保留2位小数：" + T);
+
+        // 方法6
+        DecimalFormat decimalFormat = new DecimalFormat(".00");//构造方法的字符格式这里如果小数不足2位,会以0补足.
+        String p = decimalFormat.format(T);//format 返回的是字符串
+        System.out.println("方法6 = " + p);
+
+    }
+
+    private static void floatAndDouble() {
+//        方法1:用Math.round计算,这里返回的数字格式的
+        float price = 89.897788888f;
+        int itemNum = 3;
+        float totalPrice = price * itemNum;
+        float num = (float) (Math.round(totalPrice * 100) / 100);//如果要求精确4位就*10000然后/10000
+        System.out.println("floatAndDouble = " + num);
+//        方法2: 用DecimalFormat 返回的是String格式的.该类对十进制进行全面的封装.像%号,千分位,小数精度.科学计算.
+        float price1 = 60.2888888f;
+        DecimalFormat decimalFormat = new DecimalFormat(".00");//构造方法的字符格式这里如果小数不足2位,会以0补足.
+        String p = decimalFormat.format(price1);//format 返回的是字符串
+        System.out.println("floatAndDouble 1 = " + p);
+//        个人觉得在前台显示金额方面的还是用第二种方式.理由很简单是字符串格式的.
+
+        float price2 = 0.2888888f;
+        DecimalFormat decimalFormat1 = new DecimalFormat(".00");//构造方法的字符格式这里如果小数不足2位,会以0补足.
+        String p1 = decimalFormat1.format(price2);//format 返回的是字符串
+        System.out.println("floatAndDouble 1 = " + p1);
+
+    }
+
+    private static void addList() {
+        List<CourseEntity> courseList = new ArrayList<>();
+
+        List<Course> courseList1 = new ArrayList<>();
+        for (int j = 0; j < 5; j++) {
+            Course course = new Course(j, "介绍");
+            System.out.println("course = " + course);
+            courseList1.clear();
+            courseList1.add(course);
+
+            System.out.println("courseList1 = " + courseList1);
+
+            CourseEntity courseEntity1 = new CourseEntity(j, courseList1);
+            courseList.clear();
+            courseList.add(courseEntity1);
+            System.out.println("输出测试数据 0 " + courseList.toString());
+        }
+        System.out.println("输出测试数据 " + courseList.toString());
+    }
+
+    /**
+     * java中的sleep()和wait()的区别
+     * 对于sleep()方法，我们首先要知道该方法是属于Thread类中的。而wait()方法，则是属于Object类中的。
+     * <p>
+     * sleep()方法导致了程序暂停执行指定的时间，让出cpu该其他线程，但是他的监控状态依然保持者，当指定的时间到了又会自动恢复运行状态。
+     * <p>
+     * 在调用sleep()方法的过程中，线程不会释放对象锁。
+     * <p>
+     * 而当调用wait()方法的时候，线程会放弃对象锁，进入等待此对象的等待锁定池，只有针对此对象调用notify()方法后本线程才进入对象锁定池准备
+     * <p>
+     * 获取对象锁进入运行状态。
+     * <p>
+     * 运行效果:
+     * enter thread1...
+     * thread1 is waiting...
+     * enter thread2...
+     * thread2 is waiting...
+     * thread2 is going on....
+     * thread2 is over!!!
+     * thread1 is going on ....
+     * thread1 is over!!!
+     * 如果注释掉代码：
+     * JavaStudy.class.notify();
+     * 运行效果:
+     * enter thread1...
+     * thread1 is waiting...
+     * enter thread2...
+     * thread2 is waiting...
+     * thread2 is going on....
+     * thread2 is over!!!
+     * 且程序一直处于挂起状态。
+     */
+    private static void testSleep() {
+
+        new Thread(new Thread1()).start();
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // 开始线程2
+        new Thread(new Thread2()).start();
+    }
+
+
+    /**
+     * java一些经典算法题
+     * https://blog.csdn.net/qq625315759/article/details/51867513
+     * <p>
      * 算法
      */
     private static void arithmetic() {
@@ -215,21 +384,501 @@ public class JavaStudy {
         arithmetic10();
         arithmetic11();
 
+        arithmetic12();
+        arithmetic13();
+        arithmetic14();
+        arithmetic15();
+        arithmetic16();
+        arithmetic17();
+        arithmetic18();
+        arithmetic19();
+        arithmetic20();
+        arithmetic21();
+//        arithmetic22();
+        arithmetic23();
+        arithmetic24();
+        arithmetic25();
+        arithmetic26();
     }
 
     /**
-     *
+     * 冒泡排序
+     * int num[] = {1,8, 4, 7, 10, 5};
+     * int num[] = {1,8, 4, 7, 10, 5};
+     */
+    private static void arithmetic26() {
+
+//        int[] arr = {6, 3, 8, 2, 9, 1};
+//        System.out.println("排序前数组为：");
+//        for (int num : arr) {
+//            System.out.print(num + " ");
+//        }
+//        for (int i = 0; i < arr.length - 1; i++) {//外层循环控制排序趟数
+//            for (int j = 1; j < arr.length - i; j++) {//内层循环控制每一趟排序多少次
+//                if (arr[j - 1] > arr[j]) {
+//                    int temp = arr[j];
+//                    arr[j] = arr[j - 1];
+//                    arr[j - 1] = temp;
+//                }
+//            }
+//        }
+//        System.out.println();
+//        System.out.println("排序后的数组为：");
+//        for (int num : arr) {
+//            System.out.print(num + " ");
+//        }
+
+        // 自己写
+        int num[] = {1, 8, 4, 7, 10, 5};
+        System.out.print("排序前数组: ");
+        for (int i = 0; i < num.length; i++) {
+            System.out.print(num[i] + " ");
+        }
+        System.out.println();
+        maopao(num);
+        System.out.print("排序后数组: ");
+        for (int i = 0; i < num.length; i++) {
+            System.out.print(num[i] + " ");
+        }
+    }
+
+    private static void maopao(int[] num) {
+        for (int i = 0; i < num.length; i++) {
+            for (int j = 1; j < num.length - i; j++) {
+                if (num[j - 1] > num[j]) {
+                    int temp = num[j];
+                    num[j] = num[j - 1];
+                    num[j - 1] = temp;
+                }
+            }
+        }
+    }
+
+    /**
+     * 编写一个函数，输入n为偶数时，调用函数求1/2+1/4+...+1/n,
+     * 当输入n为奇数时，调用函数1/1+1/3+...+1/n
+     */
+    private static void arithmetic25() {
+        int sum;
+        int n = 30;
+        if (n % 2 == 0) {
+            sum = getSumO(n);
+            System.out.println("偶数和是 : " + sum);
+        } else {
+            sum = getSumJ(n);
+            System.out.println("奇数和是 : " + sum);
+        }
+    }
+
+    private static int getSumO(int n) {
+        int sum = 0;
+        for (int i = 0; i <= n; i++) {
+            sum += 1 / (i + 2);
+        }
+        return sum;
+
+    }
+
+    private static int getSumJ(int n) {
+        int sum = 0;
+        for (int i = 0; i <= n; i++) {
+            sum += 1 / (i + 2);
+        }
+        return sum;
+
+    }
+
+    /**
+     * 输入数组，最大的与第一个元素交换，最小的与最后一个元素交换，输出数组。
+     */
+    private static void arithmetic24() {
+        System.out.println("----最大的与第一个元素交换，最小的与最后一个元素交换，输出数组----");
+        int[] arr = {5, 4, 3, 4, 10, 1, 7, 8, 9, 5};
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }//先遍历一遍
+        System.out.println();
+        change(arr);
+    }
+
+    private static void change(int[] arr) {
+        huanMax(arr);
+        huanMin(arr);
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");//交换完成，遍历
+        }
+    }
+
+    private static void huanMin(int[] arr) {
+        int min = arr[0];
+        int j = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] < min) {
+                min = arr[i];//求最小值
+            }
+        }
+        for (j = 0; j < arr.length; j++) {
+            if (min == arr[j])
+                break;//得到最小值的索引
+        }
+
+        int c = arr[j];
+        arr[j] = arr[arr.length - 1];
+        arr[arr.length - 1] = c;//交换
+
+    }
+
+    private static void huanMax(int[] arr) {
+        int max = arr[0];
+        int j = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > max) {
+                max = arr[i];//得到最大值
+//                System.out.println("得到最大值 " + arr[i] + "," + i);
+            }
+        }
+        for (j = 0; j < arr.length; j++) {
+            if (max == arr[j])
+                break;//得到最大值对应的索引
+        }
+
+        int c = arr[j];
+        arr[j] = arr[0];
+        arr[0] = c; //交换
+
+    }
+
+    /**
+     * 将一个数组逆序输出。
+     */
+    private static void arithmetic23() {
+        System.out.println("----将一个数组逆序输出----");
+        int[] arr = {1, 2, 34, 5, 6, 7, 8, 9};
+        print1(arr);
+    }
+
+    private static void print1(int[] arr) {
+        for (int i = arr.length - 1; i >= 0; i--)
+            System.out.print(arr[i] + " ");
+        System.out.println();
+    }
+
+
+    /**
+     * 求一个3*3矩阵对角线元素之和
+     * <p>
+     * 1 2 3         00 01 02
+     * 4 5 6         10 11 12
+     * 7 8 9         20 21 22
+     * <p>
+     * 1 3 5 5 7 9 和是25
+     */
+    private static void arithmetic22() {
+        int sum = 0;
+        int k = 1;
+        int[][] arr = new int[3][3];
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请输入9个数组成一个3*3矩阵");
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.println("请输入第" + (k++) + "个数：");
+                System.out.println(i + "与" + j + "的值");
+                arr[i][j] = scanner.nextInt();
+                if (i == j)
+                    sum += arr[i][j];
+                if (Math.abs(i - j) == 2)
+                    sum += arr[i][j];
+            }
+
+        }
+        System.out.println(sum);
+
+    }
+
+    /**
+     * 一个5位数，判断它是不是回文数。即12321是回文数，个位与万位相同，十位与千位相同。
+     */
+    private static void arithmetic21() {
+        isHui(32321);
+    }
+
+    private static void isHui(int num) {
+        int[] arr = new int[5];
+        int i = 0;
+
+        while (num != 0) {
+            arr[i] = num % 10; // 对相应的下标赋值
+            num /= 10;
+            i++;
+        }
+        if (arr[0] == arr[4] && arr[1] == arr[3]) {
+            System.out.println("是回文数");
+        } else {
+            System.out.println("不是回文数");
+        }
+
+    }
+
+    /**
+     * 给一个不多于5位的正整数，要求：一、求它是几位数，二、逆序打印出各位数字
+     * <p>
+     * 分析:
+     * 依次求余，计算位数对应的数字，对应下标的数字 num % 10
+     * // num = num / 10;  求商变成低一位的数字
+     */
+    private static void arithmetic20() {
+        getNum(12374);
+        System.out.println();
+    }
+
+    private static void getNum(int num) {
+        int[] arr = new int[5];
+        int i = 0;
+        if (num > 99999)
+            System.out.println("数字太大");
+
+        // 12374， 4 ； 1237，7； 123， 3
+        while (num != 0) {
+            arr[i] = num % 10;  // 求余对应下标的数字
+            num = num / 10;    // 求商变成低一位的数字
+            i++;
+        }
+
+        System.out.println(i + "位数字");
+        for (int j = 0; j <= i - 1; j++)
+            System.out.print(arr[j] + " ");
+
+    }
+
+
+    /**
+     * 利用递归方法求5!。
+     */
+    private static void arithmetic19() {
+        int n = 5;
+        System.out.println("利用递归方法求5! " + getJC(n));
+    }
+
+    private static int getJC(int n) {
+        int sum = 0;
+        if (n == 1 || n == 0) {
+            sum = 1;
+        } else if (n > 1) {
+            sum = n * getJC(n - 1);
+        }
+        return sum;
+    }
+
+    /**
+     * 有一分数序列：2/1，3/2，5/3，8/5，13/8，21/13...求出这个数列的前20项之和
+     */
+    private static void arithmetic18() {
+
+
+    }
+
+    /**
+     * 打印出如下图案（菱形）
+     * <p>
+     * *
+     * **
+     * *****
+     * *******
+     * *****
+     * **
+     * *
+     */
+    private static void arithmetic17() {
+//        print();
+
+        // 自己的做法是 : n个数，n列，n必定是奇数
+    }
+
+    private static void print() {
+        for (int i = 1; i <= 4; i++) {
+            if (i <= 2) {
+                for (int j = 0; j < 2 * i - 1; j++) {
+                    System.out.print("*");
+                }
+                System.out.println();
+            } else {
+                for (int j = 0; j < 2 * i; j++) {
+                    System.out.print("*");
+                }
+                System.out.println();
+            }
+        }
+        for (int i = 1; i <= 3; i++) {
+            if (i == 1) {
+                for (int j = 0; j < 8 - 2 * i; j++) {
+                    System.out.print("*");
+                }
+                System.out.println();
+            } else {
+                for (int j = 0; j < 7 - 2 * i; j++) {
+                    System.out.print("*");
+                }
+                System.out.println();
+            }
+        }
+
+    }
+
+    /**
+     * 猴子吃桃问题：猴子第一天摘下若干个桃子，当即吃了一半，还不瘾，又多吃了一个
+     * 第二天早上又将剩下的桃子吃掉一半，又多吃了一个。以后每天早上都吃了前一天剩下的一半零一个。
+     * 到第10天早上想再吃时，见只剩下一个桃子了。求第一天共摘了多少。
+     */
+    private static void arithmetic16() {
+
+        // 方式一, 递归
+//        int day = 10;  // 第n天
+//        int num = 1;  // 第n天的剩余个数
+//        jisuanTaoziNum(day, num);
+
+        // 方式二， for循环
+        qiu(3);
+    }
+
+    private static void qiu(int day) {
+        int i;
+        int[] arr = new int[day];
+        arr[day - 1] = 1;  // 第10天剩余桃子数
+        for (i = day - 2; i >= 0; i--) {
+            arr[i] = (arr[i + 1] + 1) * 2;
+        }
+        System.out.println("第一天共摘了 " + arr[0]);
+
+    }
+
+    private static void jisuanTaoziNum(int day, int num) {
+        int taoziNum = num;
+        while (day > 1) {
+            taoziNum = get(taoziNum);
+            day--;
+        }
+        System.out.println("第一天共摘了 " + taoziNum);
+    }
+
+    private static int get(int i) {
+        return (i + 1) * 2;
+    }
+
+    /**
+     * 一球从100米高度自由落下，每次落地后反跳回原高度的一半；
+     * 再落下，求它在第10次落地时，共经过多少米？第10次反弹多高？
+     */
+    private static void arithmetic15() {
+        luoDi(100, 8);
+    }
+
+    private static void luoDi(int height, int c) {
+
+        int sum = 0;
+        for (int i = 1; i <= c; i++) {
+            {
+                sum += height;        // 经过的高度之和
+                height = height / 2;  // 反弹后的高度
+            }
+        }
+
+        System.out.println("第" + c + "次落地共经过" + sum + "米");
+        System.out.println("第" + c + "反弹" + height + "米");
+
+    }
+
+    /**
+     * 一个数如果恰好等于它的因子之和，这个数就称为 "完数 "。
+     * 例如6=1＋2＋3.编程找出1000以内的所有完数
+     */
+    private static void arithmetic14() {
+        System.out.println("1000以内的所有完数 ");// 6 28 496
+        wanShu();
+        System.out.println();
+    }
+
+    private static void wanShu() {
+
+        for (int i = 1; i < 1000; i++) {
+            int sum = 0;
+            for (int j = 1; j < i; j++) {
+                if (i % j == 0) {
+                    sum += j;
+                }
+            }
+            if (sum == i)
+                System.out.print(sum + " ");
+        }
+
+    }
+
+    /**
+     * 输入两个正整数m和n，求其最大公约数和最小公倍数。
+     */
+    private static void arithmetic13() {
+        qiu(11, 7);
+    }
+
+    private static void qiu(int a, int b) {
+        // 辗转相除法求最大公约数
+        int gy;
+        int gb;
+        if (a > b)
+            gy = gongYueShu(a, b);
+        else
+            gy = gongYueShu(b, a);
+        gb = a * b / gy;
+
+        System.out.println("最大公约数:" + gy);
+        System.out.println("最小公倍数:" + gb);
+    }
+
+    private static int gongYueShu(int a, int b) {
+        while (b != 0) {
+            a = a % b;
+            if (a == 0)
+                return b;
+            else
+                b = b % a;
+        }
+        return a;
+    }
+
+    /**
+     * 求1！+2!+3!.....+30!的和 并用方法
+     */
+    private static void arithmetic12() {
+        int a = 1, b = 30;
+        sum(a, b);
+    }
+
+    // 求和
+    private static void sum(int a, int b) {
+        long sum = 0;
+        for (int i = a; i <= b; i++)
+            sum += jieCheng(i);
+
+        System.out.println("1！+2!+3!.....+30!的和 : " + a + "--" + b + "的阶乘和为：" + sum);
+    }
+
+    private static long jieCheng(int c) {
+        int jiecheng = 1;
+        for (int i = c; i >= 1; i--)
+            jiecheng *= i;
+        return jiecheng;
+    }
+
+    /**
      * 使用Java对字符串进行升序排序
      * https://www.cnblogs.com/mugglean/p/9224092.html
-
+     * <p>
      * Java对字符串的很多API和功能是JavaWeb能广泛发展的基础，下面是一道经典的字符串操作题，需要边查JAVASE的API对每个步骤进行操作。
-     *
+     * <p>
      * 题目：给一个字符串，"34 12 -8 0 3 7 128"对字符串中的数值进行升序排序后，生成一个数值有序的字符串。
-     *
      */
     private static void arithmetic11() {
         System.out.println("-------使用Java对字符串进行升序排序------");
-        String stringTest="34 12 -8 0 3 7 128";
+        String stringTest = "34 12 -8 0 3 7 128";
         String sortStr = sortNumberString(stringTest);
 
         System.out.println("使用Java对字符串进行升序排序: " + sortStr);
@@ -240,10 +889,10 @@ public class JavaStudy {
      */
     private static String sortNumberString(String stringTest) {
         // 1.切分字符串
-        String [] stringArray = stringTest.split(" ");
+        String[] stringArray = stringTest.split(" ");
 //        System.out.println(stringArray[2]);
         // 2.字符串数组转化成整数数组
-        int [] intArrays = new int[stringArray.length];
+        int[] intArrays = new int[stringArray.length];
         for (int i = 0; i < stringArray.length; i++) {
             intArrays[i] = Integer.parseInt(stringArray[i]);
             System.out.println(intArrays[i]);
@@ -272,7 +921,6 @@ public class JavaStudy {
      * https://blog.csdn.net/johnWcheung/article/details/52790248
      */
     private static void arithmetic9() {
-
         int size = 1000;
         int[] data = new int[size];  //  添加测试数据
         for (int i = 0; i < data.length; i++) {
@@ -655,6 +1303,52 @@ public class JavaStudy {
         } else if (a instanceof polymorphism.Dog) { // 狗做的事情
             polymorphism.Dog c = (polymorphism.Dog) a;
             c.work();
+        }
+    }
+
+    static class Thread1 implements Runnable {
+
+        @Override
+        public void run() {
+            synchronized (JavaStudy.class) {
+                System.out.println("enter thread1...");
+                System.out.println("thread1 is waiting...");
+                //调用wait()方法，线程会放弃对象锁，进入等待此对象的等待锁定池
+                try {
+                    JavaStudy.class.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("thread1 is going on ....");
+                System.out.println("thread1 is over!!!");
+            }
+        }
+    }
+
+    static class Thread2 implements Runnable {
+
+        @Override
+        public void run() {
+            synchronized (JavaStudy.class) {
+                System.out.println("enter thread2...");
+                System.out.println("thread2 is waiting...");
+                //只有针对此对象调用notify()方法后本线程才进入对象锁定池准备获取对象锁进入运行状态。
+//                JavaStudy.class.notify();
+                //区别
+                //如果我们把代码：TestD.class.notify();给注释掉，即TestD.class调用了wait()方法，但是没有调用notify()
+                //方法，则线程永远处于挂起状态。
+                //sleep()方法导致了程序暂停执行指定的时间，让出cpu该其他线程，
+                //但是他的监控状态依然保持者，当指定的时间到了又会自动恢复运行状态。
+                //在调用sleep()方法的过程中，线程不会释放对象锁。
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("thread2 is going on....");
+                System.out.println("thread2 is over!!!");
+
+            }
         }
     }
 
