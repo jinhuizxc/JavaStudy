@@ -62,11 +62,8 @@ public class DesignPattern {
         SingletonEnum singletonEnum = SingletonEnum.INSTANCE;
         System.out.println("单例模式--->枚举实现单例 singletonEnum = " + singletonEnum);
 
+        // 使用容器实现单例
 
-
-        // 2. 适配器模式
-        // 3. 代理模式
-        // 4. 策略模式
 
     }
 }
