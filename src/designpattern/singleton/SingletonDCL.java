@@ -4,9 +4,9 @@ package designpattern.singleton;
 /**
  * Double check Lock(DCL模式)
  */
-public class Singleton3 {
+public class SingletonDCL {
 
-    private static Singleton3 instance;
+    private volatile static SingletonDCL instance;
 
 
     /**
@@ -18,11 +18,11 @@ public class Singleton3 {
      *
      * @return
      */
-    public static Singleton3 getInstance(){
+    public static SingletonDCL getInstance(){
         if (instance == null){
-            synchronized (Singleton3.class){
+            synchronized (SingletonDCL.class){
                 if (instance == null){
-                    instance = new Singleton3();
+                    instance = new SingletonDCL();
                 }
             }
         }

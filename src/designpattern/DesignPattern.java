@@ -52,7 +52,7 @@ public class DesignPattern {
         }
 
         // Double check Lock(DCL模式)
-        Singleton3 singleton3 = Singleton3.getInstance();
+        SingletonDCL singleton3 = SingletonDCL.getInstance();
         System.out.println("单例模式 singleton3 = " + singleton3);
         // 静态内部类实现单例模式
         Singleton4 singleton4 = Singleton4.getInstance();
