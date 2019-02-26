@@ -38,14 +38,14 @@ public class Test {
         m.move();
 
         // 动态代理记录时间、日志
-//        Car car = new Car();
+//        SmallCar car = new SmallCar();
 //        InvocationHandler timeHandler = new TimeHandler(car);
 //        Moveable m = (Moveable) Proxy.newProxyInstance(car.getClass().getClassLoader(), car.getClass().getInterfaces(), timeHandler);
 //        InvocationHandler logHandler = new LogHandler(m);
 //        Moveable m2 = (Moveable) Proxy.newProxyInstance(m.getClass().getClassLoader(), m.getClass().getInterfaces(), logHandler);
 //        m2.move();
 
-//        Car car = new Car();
+//        SmallCar car = new SmallCar();
 //        Class carClass = car.getClass();
 //        InvocationHandler timeHandler = new TimeHandler(car);
 //        Moveable proxy = (Moveable) Proxy.newProxyInstance(carClass.getClassLoader(),

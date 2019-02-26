@@ -29,7 +29,7 @@ public class Test {
     public static void main(String[] args) {
 
         // 普通做法：
-//        Car car = new Car();
+//        SmallCar car = new SmallCar();
 //        car.move();
 
         // Car2 继承实现静态代理
@@ -37,7 +37,7 @@ public class Test {
 //        m.move();
 
         // 通过聚合的方式实现静态代理
-//        Car car = new Car();
+//        SmallCar car = new SmallCar();
 //        Moveable car3 = new Car3(car);
 //        car3.move();
 

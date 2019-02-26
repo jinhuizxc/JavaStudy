@@ -168,12 +168,12 @@ public class JavaStudy {
         /* 以下是不允许的，会引发错误 */
         // 抽象类不能被实例化(初学者很容易犯的错)，如果被实例化，就会报错，编译无法通过。
         // 只有抽象类的非抽象子类可以创建对象。
-//        abstractclass.Employee employee = new abstractclass.Employee("George W.", "Houston, TX", 43);
+//        com.project.abstractclass.Employee employee = new com.project.abstractclass.Employee("George W.", "Houston, TX", 43);
 //        System.out.println("\n Call mailCheck using Employee reference--");
 //        employee.mailCheck();
 
-        abstractclass.Salary s1 = new abstractclass.Salary("Mohd Mohtashim", "Ambehta, UP", 3, 3600.00);
-        abstractclass.Employee e1 = new abstractclass.Salary("John Adams", "Boston, MA", 2, 2400.00);
+        com.project.abstractclass.Salary s1 = new com.project.abstractclass.Salary("Mohd Mohtashim", "Ambehta, UP", 3, 3600.00);
+        com.project.abstractclass.Employee e1 = new com.project.abstractclass.Salary("John Adams", "Boston, MA", 2, 2400.00);
 
         System.out.println("Call mailCheck using Salary reference --");
         s1.mailCheck();
